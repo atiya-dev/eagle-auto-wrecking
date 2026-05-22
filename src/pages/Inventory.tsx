@@ -305,45 +305,55 @@ export const InventoryPage = () => {
             {/* Part Cards */}
             {filteredParts.length > 0 ? (
               filteredParts.map((part) => (
-                <div key={part.id} className="bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 group transition-all hover:border-neutral-700">
-                  <div className="flex flex-col md:flex-row">
-                    <div className="md:w-1/3 aspect-[4/3] bg-black overflow-hidden relative">
-                      <LightweightImage 
-                        src={part.imageUrl}
-                        alt={part.name}
-                        fallbackIcon={part.icon}
-                      />
-                      <div className="absolute top-4 left-4 bg-brand-primary px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest">
-                        In Stock
+                <div key={part.id} className="bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 group transition-all hover:border-brand-primary/50">
+                  <div className="p-8">
+                    <div className="flex flex-col md:flex-row justify-between items-start gap-6 border-b border-neutral-800 pb-6 mb-6">
+                      <div className="flex items-start gap-4">
+                        <div className="bg-black/80 border border-neutral-800 p-4 rounded-xl text-brand-primary group-hover:scale-110 transition-transform duration-300">
+                          {part.icon}
+                        </div>
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <span className="text-xs bg-brand-primary/15 text-brand-primary px-2.5 py-0.5 rounded font-bold uppercase tracking-wider">{part.category}</span>
+                            <span className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded font-semibold uppercase tracking-wider">In Stock</span>
+                          </div>
+                          <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-primary transition-colors">{part.name}</h3>
+                          <p className="text-xs text-neutral-500 font-mono mt-1">PART SOURCING DESIGNATOR: {part.partId}</p>
+                        </div>
+                      </div>
+                      <div className="text-left md:text-right shrink-0">
+                        <span className="text-xs text-neutral-500 font-bold uppercase tracking-widest block mb-1">OEM VALUE</span>
+                        <p className="text-brand-primary text-3xl font-display font-black leading-none">{part.price}</p>
+                        <p className="text-xs text-neutral-400 mt-1.5 font-medium">Core deposit: {part.coreCharge}</p>
                       </div>
                     </div>
-                    <div className="p-8 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex justify-between items-start mb-4 gap-4">
-                          <div>
-                            <h3 className="text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-brand-primary transition-colors">{part.name}</h3>
-                            <p className="text-xs text-neutral-500 font-bold uppercase tracking-widest">Part ID: {part.partId}</p>
-                          </div>
-                          <div className="text-right shrink-0">
-                            <p className="text-brand-primary text-xl font-display font-black leading-none">{part.price}</p>
-                            <p className="text-[10px] text-neutral-500 uppercase mt-1">Core: {part.coreCharge}</p>
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                          <div className="text-sm bg-black/40 p-3 rounded border border-white/5">
-                            <span className="text-neutral-600 font-bold uppercase text-[10px] block mb-1">Condition</span>
-                            <span className="text-neutral-300 font-medium">{part.condition}</span>
-                          </div>
-                          <div className="text-sm bg-black/40 p-3 rounded border border-white/5">
-                            <span className="text-neutral-600 font-bold uppercase text-[10px] block mb-1">Mileage / Hours</span>
-                            <span className="text-neutral-300 font-medium">{part.mileage}</span>
-                          </div>
-                        </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                      <div className="text-sm bg-black/40 p-4 rounded-lg border border-white/5">
+                        <span className="text-neutral-500 font-bold uppercase text-[10px] tracking-wider block mb-1">Dismantler Grade</span>
+                        <span className="text-neutral-200 font-semibold">{part.condition}</span>
                       </div>
-                      <div className="flex gap-4">
-                        <Link to="/contact" className="flex-1 bg-white/5 hover:bg-white/10 text-center py-3 rounded text-xs font-bold uppercase tracking-widest transition-all border border-white/10">View Details</Link>
-                        <Link to="/contact" className="flex-1 bg-brand-primary hover:bg-red-600 text-center py-3 rounded text-xs font-bold uppercase tracking-widest transition-all">Request Quote</Link>
+                      <div className="text-sm bg-black/40 p-4 rounded-lg border border-white/5">
+                        <span className="text-neutral-500 font-bold uppercase text-[10px] tracking-wider block mb-1">Milage / Hours</span>
+                        <span className="text-neutral-200 font-semibold">{part.mileage}</span>
                       </div>
+                      <div className="text-sm bg-black/40 p-4 rounded-lg border border-white/5">
+                        <span className="text-neutral-500 font-bold uppercase text-[10px] tracking-wider block mb-1">Compatibility</span>
+                        <span className="text-neutral-200 font-semibold">{part.year} {part.make} {part.model}</span>
+                      </div>
+                      <div className="text-sm bg-black/40 p-4 rounded-lg border border-white/5">
+                        <span className="text-neutral-500 font-bold uppercase text-[10px] tracking-wider block mb-1">Warranty Elite</span>
+                        <span className="text-brand-primary font-bold">30 Days Standard</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4 pt-2 border-t border-neutral-800/40">
+                      <Link to="/contact" className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white text-center py-3.5 rounded font-bold uppercase tracking-widest text-xs transition-all border border-neutral-700">
+                        View Complete Fitment Matrix
+                      </Link>
+                      <Link to="/contact" className="flex-1 bg-brand-primary hover:bg-red-600 text-white text-center py-3.5 rounded font-black uppercase tracking-widest text-xs transition-all shadow-lg active:translate-y-0.5">
+                        Secure Live Quote Request
+                      </Link>
                     </div>
                   </div>
                 </div>
